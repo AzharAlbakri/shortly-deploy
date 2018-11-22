@@ -1,8 +1,16 @@
 module.exports = function(grunt) {
 
+//require('load-grunt-tasks')(grunt)//we added this
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+    options: {
+      separator: ';\n',
+    },
+    dist: {
+      src: ['src/intro.js', 'src/project.js', 'src/outro.js','src/**/*.js'], //**
+      dest: 'dist/built.js',
     },
 
     mochaTest: {
@@ -22,7 +30,7 @@ module.exports = function(grunt) {
 
     uglify: {
     },
-
+    
     eslint: {
       target: [
         // Add list of files to lint here
@@ -79,6 +87,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
   ]);
 
+  grunt.registerTask('default', ['uglify']);
+
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
@@ -86,8 +96,8 @@ module.exports = function(grunt) {
       grunt.task.run([ 'server-dev' ]);
     }
   });
-
-  grunt.registerTask('deploy', [
+// eslnet
+  grunt.registerTask('deploy', ['eslint'
     // add your deploy tasks here
   ]);
 
